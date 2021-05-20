@@ -11,4 +11,4 @@ Software application that functions as a <b>decision support system</b>. Receive
 <p><b>Database:</b> <li>PostgreSQL 12</li>
 
 <p><b>Project Manager:</b> Kovalenko Diana</p>
-<p><b>Programmers:</b> Gorban Dmytro, Pavlov Alexander, Kravchenko Nazar</p>
+<p><b>Programmers:</b> Horban Dmytro, Pavlov Oleksandr, Kravchenko Nazar</p>
