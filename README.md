@@ -8,7 +8,7 @@ Software application that functions as a <b>decision support system</b>. Receive
 <li>Spring Security</li>
 <li>Thymeleaf</li>
 
-<p><b>Database:</b> <li>PostgreSQL 12</li>
+<b>Database:</b> <li>PostgreSQL 12</li>
 
-<p><b>Project Manager:</b> Kovalenko Diana</p>
-<p><b>Programmers:</b> Horban Dmytro, Pavlov Oleksandr, Kravchenko Nazar</p>
+<b>Project Manager:</b> Kovalenko Diana
+<b>Programmers:</b> Horban Dmytro, Pavlov Oleksandr, Kravchenko Nazar
