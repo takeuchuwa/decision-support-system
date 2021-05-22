@@ -1,0 +1,22 @@
+spring:
+  devtools:
+    remote:
+      restart:
+        enabled: true
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    cache: false
+
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+      cache:
+        period: 0
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/decision_support_system
+    username: postgres
+    password: root
+
+logging:
+  level: debug
