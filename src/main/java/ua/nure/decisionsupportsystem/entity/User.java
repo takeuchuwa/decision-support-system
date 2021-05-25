@@ -6,11 +6,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ua.nure.decisionsupportsystem.annotations.ValidPassword;
 import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
+import ua.nure.decisionsupportsystem.entity.enums.UserType;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,6 +23,8 @@ import java.util.Collections;
 @Builder
 public class User extends BaseEntity implements UserDetails {
 
+    private LocalDate registrationDate;
+
     @Size(min = 4, message = "Username must be at least 4 characters long")
     private String username;
 
@@ -36,18 +37,17 @@ public class User extends BaseEntity implements UserDetails {
     @NotBlank(message = "Last name couldn't be empty")
     private String lastName;
 
-    @Pattern(regexp = "^(?:\\+38)?(?:\\(044\\)[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[ .-]?[0-9]{3}[ .-]?[0-9]{2}[ .-]?[0-9]{2}|044[0-9]{7})$",
+    @Email(message = "Not valid email")
+    @NotBlank(message = "Email couldn't be empty")
+    private String email;
+
+    @Pattern(regexp = "^\\+?3?8?(0[\\s\\.-]?\\d{2}[\\s\\.-]?\\d{3}[\\s\\.-]?\\d{2}[\\s\\.-]?\\d{2})$",
             message = "Phone is not valid")
     private String phoneNumber;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "Please select your type")
     private UserType userType;
-
-    private LocalDate registrationDate;
-
-    public enum UserType {
-        ADMIN, HR, EMPLOYEE
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
