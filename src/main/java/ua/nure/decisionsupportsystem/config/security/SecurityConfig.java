@@ -1,4 +1,4 @@
-package ua.nure.decisionsupportsystem.security;
+package ua.nure.decisionsupportsystem.config.security;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/**").permitAll()
 
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/",true)
 
                 .and()
                 .logout()

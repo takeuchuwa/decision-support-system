@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.nure.decisionsupportsystem.entity.User;
+import ua.nure.decisionsupportsystem.entity.dto.UserDto;
 
 import javax.validation.Valid;
 
@@ -15,8 +15,8 @@ import javax.validation.Valid;
 public class SignUpController {
 
     @ModelAttribute("user")
-    public User user() {
-        return new User();
+    public UserDto user() {
+        return new UserDto();
     }
 
     @GetMapping
@@ -25,7 +25,7 @@ public class SignUpController {
     }
 
     @PostMapping
-    public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String submitForm(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup";
         }
