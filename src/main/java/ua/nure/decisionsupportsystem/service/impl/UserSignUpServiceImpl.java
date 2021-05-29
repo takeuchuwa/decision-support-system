@@ -42,7 +42,8 @@ public class UserSignUpServiceImpl implements UserSignUpService {
     @Override
     @Transactional
     public boolean signUpUser(UserDto userDto) {
-        if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(userDto.getUsername()).isPresent()
+            || userRepository.findByEmailIgnoreCase(userDto.getEmail()).isPresent()) {
             return false;
         }
 
@@ -67,7 +68,6 @@ public class UserSignUpServiceImpl implements UserSignUpService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("Decision Support System");
         mailMessage.setText(emailUtil.getConfirmationMessage() + " " + emailUtil.getConfirmationUrlWithToken() +
                 confirmationToken.getConfirmationToken());
 
