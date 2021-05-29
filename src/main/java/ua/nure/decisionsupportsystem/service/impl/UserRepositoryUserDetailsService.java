@@ -1,4 +1,4 @@
-package ua.nure.decisionsupportsystem.service;
+package ua.nure.decisionsupportsystem.service.impl;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

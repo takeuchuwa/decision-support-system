@@ -18,6 +18,7 @@ import javax.validation.constraints.*;
 public class UserDto {
 
     @Size(min = 4, message = "Username must be at least 4 characters long")
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Username can contain only english letters and numbers")
     private String username;
 
     @ValidPassword()

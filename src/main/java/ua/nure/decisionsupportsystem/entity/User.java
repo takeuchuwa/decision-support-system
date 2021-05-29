@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
+import ua.nure.decisionsupportsystem.entity.enums.UserStatuses;
 import ua.nure.decisionsupportsystem.entity.enums.UserType;
 
 import javax.persistence.Entity;
@@ -40,6 +41,9 @@ public class User extends BaseEntity implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
+
+    @Enumerated(value = EnumType.STRING)
+    private UserStatuses userStatuses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

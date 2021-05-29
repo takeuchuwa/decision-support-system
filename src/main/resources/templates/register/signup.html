@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Spring Registration Form</title>
+    <title>Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -31,7 +31,8 @@
                 </div>
                 <div class="form-group">
                     <input type="text" th:field="*{username}" class="form-control"
-                           id="username" placeholder="Username"> <span
+                           id="username" placeholder="Username">
+                    <span
                         th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                         class="text-danger"></span>
                 </div>
@@ -73,6 +74,9 @@
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Submit">
                 </div>
+
+                <h6>Already registred?
+                    <a th:href="@{/login}">Click here to login</a></h6>
 
             </form>
         </div>
