@@ -43,7 +43,7 @@ public class User extends BaseEntity implements UserDetails {
     private UserType userType;
 
     @Enumerated(value = EnumType.STRING)
-    private UserStatuses userStatuses;
+    private UserStatuses userStatus;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
