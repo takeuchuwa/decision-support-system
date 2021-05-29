@@ -13,10 +13,25 @@ spring:
       cache:
         period: 0
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+
   datasource:
     url: jdbc:postgresql://localhost:5432/decision_support_system
     username: postgres
     password: root
 
-logging:
-  level: debug
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: testhorban@gmail.com
+    password: User9Ed334
+    protocol: smtp
+    properties.mail.smtp:
+      starttls.enable: true
+      starttls.required: true
+      auth: true
+      connectiontimeout: 5000
+      timeout: 5000
+      writetimeout: 5000
