@@ -55,7 +55,7 @@ public class UserSignUpServiceImpl implements UserSignUpService {
                 .email(userDto.getEmail())
                 .phoneNumber(userDto.getPhoneNumber())
                 .userType(userDto.getUserType())
-                .userStatuses(UserStatuses.PENDING_ACTIVATION)
+                .userStatus(UserStatuses.PENDING_ACTIVATION)
                 .build();
 
         userRepository.save(user);
@@ -83,7 +83,7 @@ public class UserSignUpServiceImpl implements UserSignUpService {
         if(token.isPresent()) {
             Optional<User> user = userRepository.findByEmailIgnoreCase(token.get().getUser().getEmail());
             user.ifPresent(activeUser -> {
-                activeUser.setUserStatuses(UserStatuses.ACTIVE);
+                activeUser.setUserStatus(UserStatuses.ACTIVE);
                 userRepository.save(activeUser);
                 confirmationTokenRepository.delete(token.get());
             });
