@@ -6,12 +6,36 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-WELCOME!
+<div th:replace="parts/header :: header"></div>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Welcome!</h1>
+        <p>Support HR to find Employee. HPKK Decision Support System</p>
+        <p><a class="btn btn-primary btn-lg" href="login" role="button">Login Here</a></p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <h4>What Is a Decision Support System?</h4>
+            <p>A decision support system (DSS) is a computerized program used to support determinations, judgments, and
+                courses of action in an organization or a business. A DSS sifts through and analyzes massive amounts of
+                data, compiling comprehensive information that can be used to solve problems and in decision-making.</p>
+            <a th:href="@{/signup}" class="btn btn-success">Sign up now</a>
+        </div>
+        <div class="col-md-5">
+            <h4>Using a Decision Support System</h4>
+            <p>The DSS can be employed by operations management and other planning departments in an organization to
+                compile information and data and to synthesize it into actionable intelligence. In fact, these systems
+                are primarily used by mid- to upper-level management.</p>
+            <a class="btn btn-success" th:href="@{/signup}" role="button">Try it</a>
+        </div>
+    </div>
+</div>
+<div th:replace="parts/footer :: footer"></div>
 </body>
 </html>

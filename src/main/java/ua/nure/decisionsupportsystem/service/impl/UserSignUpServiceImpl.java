@@ -7,6 +7,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import ua.nure.decisionsupportsystem.util.EmailUtil;
 import ua.nure.decisionsupportsystem.entity.ConfirmationToken;
 import ua.nure.decisionsupportsystem.entity.User;
@@ -41,9 +43,12 @@ public class UserSignUpServiceImpl implements UserSignUpService {
 
     @Override
     @Transactional
-    public boolean signUpUser(UserDto userDto) {
-        if (userRepository.findByUsername(userDto.getUsername()).isPresent()
-            || userRepository.findByEmailIgnoreCase(userDto.getEmail()).isPresent()) {
+    public boolean signUpUser(UserDto userDto, BindingResult bindingResult) {
+        if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
+            bindingResult.addError(new ObjectError("username", "This username already taken"));
+            return false;
+        } else if (userRepository.findByEmailIgnoreCase(userDto.getEmail()).isPresent()) {
+            bindingResult.addError(new ObjectError("email", "This email already used"));
             return false;
         }
 
