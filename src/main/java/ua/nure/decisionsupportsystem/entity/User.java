@@ -8,13 +8,11 @@ import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
 import ua.nure.decisionsupportsystem.entity.enums.UserStatuses;
 import ua.nure.decisionsupportsystem.entity.enums.UserType;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

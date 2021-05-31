@@ -4,11 +4,59 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div th:replace="parts/header :: header"></div>
-employee
+<div class="container">
+
+    <div class="row">
+        <div class="col-md6">
+            <h2 class="mt-5">Add skills</h2>
+
+            <form th:object="${employeeInformation}" th:action="@{/profile}" method="post">
+                <div class="ml-2">
+                    <div class="form-group mt-3">
+                        <h6>Work Experience</h6>
+                        <input id="work-experience" type="number" min="0" max="15" onblur="check(0, 15);"
+                               th:field="*{workExperience}" class="form-control"/>
+                        <span>(Maximum 15 years)</span>
+                    </div>
+                </div>
+                <div class="form-group ml-2">
+                    <div class="form-inline mt-3">
+                        <h6 class="mt-2 mx-2">Skill: </h6>
+                        <select id="skills" class="form-control" th:field="${employeeSkill.skill}">
+                            <option th:each="skill : ${skills}" th:value="${skill.id}" th:text="${skill.name}"></option>
+                        </select>
+                        <h6 class="mt-2 mx-2">Level: </h6>
+                        <input id="level" type="number" class="form-control" min="0" max="10" onblur="check(0, 10);"
+                               th:field="${employeeSkill.skillLevel}"/>
+                    </div>
+                </div>
+                <button class="btn btn-primary ml-2" type="submit">Add skills</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mt-5">Your Skills</h2>
+            <ul id="skillsUL">
+                <li th:each="employeeSkill : ${employeeSkills}" th:value="${employeeSkill.id}"
+                    th:text="${employeeSkill.skill.name} + ' : ' + ${employeeSkill.skillLevel}"></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script>
+    function check(min, max) {
+        var num = parseInt(document.getElementById('work-experience').value);
+        if (min > num) {
+            document.getElementById('work-experience').value = min;
+        } else if (max < num) {
+            document.getElementById('work-experience').value = max;
+        }
+    }
+</script>
 <div th:replace="parts/footer :: footer"></div>
 </body>
 </html>
