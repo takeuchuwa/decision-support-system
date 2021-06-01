@@ -8,4 +8,6 @@ import java.security.Principal;
 public interface EmployeeService {
 
     void addSkill(EmployeeInformation employeeInformation, EmployeeSkills employeeSkills, Principal principal);
+
+    void saveInformation(EmployeeInformation employeeInformation, Principal principal);
 }

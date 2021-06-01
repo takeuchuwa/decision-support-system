@@ -12,5 +12,5 @@ public interface EmployeeSkillsRepository extends JpaRepository<EmployeeSkills, 
 
     List<EmployeeSkills> findAllByEmployeeInformation(EmployeeInformation employeeInformation);
 
-    Optional<EmployeeSkills> findBySkill(Skill skill);
+    Optional<EmployeeSkills> findByEmployeeInformationAndSkill(EmployeeInformation employeeInformation, Skill skill);
 }

@@ -21,6 +21,8 @@ public class EmployeeInformation extends BaseEntity {
 
     private Long workExperience;
 
+    private Long salary;
+
     @OneToMany(mappedBy = "employeeInformation")
     private List<EmployeeSkills> employeeSkills;
 

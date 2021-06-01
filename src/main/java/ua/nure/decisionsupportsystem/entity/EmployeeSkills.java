@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Builder
 public class EmployeeSkills extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private EmployeeInformation employeeInformation;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn
     private Skill skill;
 

@@ -29,24 +29,46 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
+    public void saveInformation(EmployeeInformation employeeInformation, Principal principal) {
+        Optional<User> user = userRepository.findByUsername(principal.getName());
+        user.ifPresent(u -> {
+            Optional<EmployeeInformation> empInfo = employeeInformationRepository.findByUser(u);
+            if (empInfo.isPresent()) {
+                updateEmployeeInformation(employeeInformation, empInfo.get());
+            } else {
+                saveEmployeeInformation(employeeInformation, u);
+            }
+        });
+    }
+
+    @Override
+    @Transactional
     public void addSkill(EmployeeInformation employeeInformation, EmployeeSkills employeeSkills, Principal principal) {
         Optional<User> user = userRepository.findByUsername(principal.getName());
         user.ifPresent(u -> {
             Optional<EmployeeInformation> empInfo = employeeInformationRepository.findByUser(u);
             if (empInfo.isPresent()) {
-                empInfo.get().setWorkExperience(employeeInformation.getWorkExperience());
-                employeeInformationRepository.save(empInfo.get());
                 saveOrUpdateSkillByInformation(employeeSkills, empInfo.get());
             } else {
-                employeeInformation.setUser(u);
-                employeeInformationRepository.save(employeeInformation);
+                saveEmployeeInformation(employeeInformation, u);
                 saveOrUpdateSkillByInformation(employeeSkills, employeeInformation);
             }
         });
     }
 
+    private void updateEmployeeInformation(EmployeeInformation employeeInformation, EmployeeInformation empInfo) {
+        empInfo.setWorkExperience(employeeInformation.getWorkExperience());
+        empInfo.setSalary(employeeInformation.getSalary());
+        employeeInformationRepository.save(empInfo);
+    }
+
+    private void saveEmployeeInformation(EmployeeInformation employeeInformation, User user) {
+        employeeInformation.setUser(user);
+        employeeInformationRepository.save(employeeInformation);
+    }
     public void saveOrUpdateSkillByInformation(EmployeeSkills employeeSkills, EmployeeInformation employeeInformation) {
-        Optional<EmployeeSkills> empSkills = employeeSkillsRepository.findBySkill(employeeSkills.getSkill());
+        Optional<EmployeeSkills> empSkills = employeeSkillsRepository
+                .findByEmployeeInformationAndSkill(employeeInformation, employeeSkills.getSkill());
         if (employeeSkills.getSkillLevel() != null) {
             if (empSkills.isPresent()) {
                 empSkills.get().setSkillLevel(employeeSkills.getSkillLevel());

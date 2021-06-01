@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.nure.decisionsupportsystem.entity.EmployeeInformation;
 import ua.nure.decisionsupportsystem.entity.EmployeeSkills;
 import ua.nure.decisionsupportsystem.entity.User;
@@ -63,11 +60,23 @@ public class ProfileController {
         }
     }
 
-    @PostMapping
+    @PostMapping()
+    public String saveInformation(@ModelAttribute("employeeInformation") EmployeeInformation employeeInformation,
+                                  Principal principal) {
+        employeeService.saveInformation(employeeInformation, principal);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/add")
     public String addSkill(@ModelAttribute("employeeInformation") EmployeeInformation employeeInformation,
-                           @ModelAttribute("employeeSkill") EmployeeSkills employeeSkills,
-                           HttpServletRequest request, ModelMap map, Principal principal) {
+                           @ModelAttribute("employeeSkill") EmployeeSkills employeeSkills, Principal principal) {
         employeeService.addSkill(employeeInformation, employeeSkills, principal);
-        return showProfile(request, map, principal);
+        return "redirect:../profile";
+    }
+
+    @PostMapping("/delete")
+    public String deleteSkill(@RequestParam("employeeSkillId") Long id) {
+        employeeSkillsRepository.deleteById(id);
+        return "redirect:../profile";
     }
 }
