@@ -7,6 +7,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import ua.nure.decisionsupportsystem.util.EmailUtil;
 import ua.nure.decisionsupportsystem.entity.ConfirmationToken;
 import ua.nure.decisionsupportsystem.entity.User;
@@ -41,8 +43,12 @@ public class UserSignUpServiceImpl implements UserSignUpService {
 
     @Override
     @Transactional
-    public boolean signUpUser(UserDto userDto) {
+    public boolean signUpUser(UserDto userDto, BindingResult bindingResult) {
         if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
+            bindingResult.addError(new ObjectError("username", "This username already taken"));
+            return false;
+        } else if (userRepository.findByEmailIgnoreCase(userDto.getEmail()).isPresent()) {
+            bindingResult.addError(new ObjectError("email", "This email already used"));
             return false;
         }
 
@@ -55,7 +61,7 @@ public class UserSignUpServiceImpl implements UserSignUpService {
                 .email(userDto.getEmail())
                 .phoneNumber(userDto.getPhoneNumber())
                 .userType(userDto.getUserType())
-                .userStatuses(UserStatuses.PENDING_ACTIVATION)
+                .userStatus(UserStatuses.PENDING_ACTIVATION)
                 .build();
 
         userRepository.save(user);
@@ -67,7 +73,6 @@ public class UserSignUpServiceImpl implements UserSignUpService {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("Decision Support System");
         mailMessage.setText(emailUtil.getConfirmationMessage() + " " + emailUtil.getConfirmationUrlWithToken() +
                 confirmationToken.getConfirmationToken());
 
@@ -83,7 +88,7 @@ public class UserSignUpServiceImpl implements UserSignUpService {
         if(token.isPresent()) {
             Optional<User> user = userRepository.findByEmailIgnoreCase(token.get().getUser().getEmail());
             user.ifPresent(activeUser -> {
-                activeUser.setUserStatuses(UserStatuses.ACTIVE);
+                activeUser.setUserStatus(UserStatuses.ACTIVE);
                 userRepository.save(activeUser);
                 confirmationTokenRepository.delete(token.get());
             });

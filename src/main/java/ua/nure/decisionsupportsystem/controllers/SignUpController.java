@@ -4,7 +4,6 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ua.nure.decisionsupportsystem.entity.dto.UserDto;
 import ua.nure.decisionsupportsystem.service.UserSignUpService;
@@ -33,8 +32,8 @@ public class SignUpController {
         if (bindingResult.hasErrors()) {
             return "register/signup";
         }
-        if (!userSignUpService.signUpUser(userDto)) {
-            bindingResult.addError(new ObjectError("username", "This username already taken"));
+        if (!userSignUpService.signUpUser(userDto, bindingResult)) {
+
             return "register/signup";
         }
 

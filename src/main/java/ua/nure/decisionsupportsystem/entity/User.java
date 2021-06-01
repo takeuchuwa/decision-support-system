@@ -8,13 +8,11 @@ import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
 import ua.nure.decisionsupportsystem.entity.enums.UserStatuses;
 import ua.nure.decisionsupportsystem.entity.enums.UserType;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -47,7 +45,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userType));
     }
 
     @Override
@@ -67,6 +65,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return UserStatuses.ACTIVE.equals(userStatus);
     }
 }
