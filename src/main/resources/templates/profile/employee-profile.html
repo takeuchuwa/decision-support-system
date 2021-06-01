@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -13,8 +13,7 @@
     <div class="row">
         <div class="col-md-4">
             <h2 class="mt-5">Add information</h2>
-
-            <form th:object="${employeeInformation}" th:action="@{/profile}" method="post">
+            <form th:object="${employeeInformation}" th:action="@{/profile/save}" method="post">
                 <div class="ml-2">
                     <div class="form-group mt-3">
                         <h6>Work Experience (Maximum 15 years)</h6>

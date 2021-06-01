@@ -8,7 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ua.nure.decisionsupportsystem.entity.EmployeeInformation;
 import ua.nure.decisionsupportsystem.entity.EmployeeSkills;
+import ua.nure.decisionsupportsystem.entity.Skill;
 import ua.nure.decisionsupportsystem.entity.User;
+import ua.nure.decisionsupportsystem.entity.dto.SearchDto;
+import ua.nure.decisionsupportsystem.entity.dto.elements.SearchSkill;
 import ua.nure.decisionsupportsystem.repositories.EmployeeInformationRepository;
 import ua.nure.decisionsupportsystem.repositories.EmployeeSkillsRepository;
 import ua.nure.decisionsupportsystem.repositories.SkillRepository;
@@ -17,6 +20,8 @@ import ua.nure.decisionsupportsystem.service.EmployeeService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -56,15 +61,20 @@ public class ProfileController {
             map.addAttribute("employeeSkill", new EmployeeSkills());
             return "profile/employee-profile";
         } else {
+            SearchDto searchDto = new SearchDto();
+            searchDto.setSkills(new ArrayList<>());
+            searchDto.getSkills().add(new SearchSkill());
+            map.addAttribute("searchDto", searchDto);
+            map.addAttribute("allSkills", skillRepository.findAll());
             return "profile/hr-profile";
         }
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public String saveInformation(@ModelAttribute("employeeInformation") EmployeeInformation employeeInformation,
                                   Principal principal) {
         employeeService.saveInformation(employeeInformation, principal);
-        return "redirect:/profile";
+        return "redirect:../profile";
     }
 
     @PostMapping("/add")
@@ -79,4 +89,22 @@ public class ProfileController {
         employeeSkillsRepository.deleteById(id);
         return "redirect:../profile";
     }
+
+    @RequestMapping(params = {"addRow"})
+    public String addRow(final SearchDto searchDto, ModelMap map) {
+        searchDto.getSkills().add(new SearchSkill());
+        map.addAttribute("allSkills", skillRepository.findAll());
+        return "profile/hr-profile";
+    }
+
+    @RequestMapping(params={"removeRow"})
+    public String removeRow(
+            final SearchDto searchDto,
+            final HttpServletRequest req, ModelMap map) {
+        final int rowId = Integer.parseInt(req.getParameter("removeRow"));
+        searchDto.getSkills().remove(rowId);
+        map.addAttribute("allSkills", skillRepository.findAll());
+        return "profile/hr-profile";
+    }
 }
+
