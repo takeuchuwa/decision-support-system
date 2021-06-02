@@ -65,6 +65,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private void saveEmployeeInformation(EmployeeInformation employeeInformation, User user) {
         employeeInformation.setUser(user);
         employeeInformationRepository.save(employeeInformation);
+        user.setEmployeeInformation(employeeInformation);
+        userRepository.save(user);
     }
     public void saveOrUpdateSkillByInformation(EmployeeSkills employeeSkills, EmployeeInformation employeeInformation) {
         Optional<EmployeeSkills> empSkills = employeeSkillsRepository
