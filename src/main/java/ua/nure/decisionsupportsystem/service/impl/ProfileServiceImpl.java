@@ -107,16 +107,16 @@ public class ProfileServiceImpl implements ProfileService {
                         .containsAll(skills))
                 .collect(Collectors.toList());
         users.sort((u1, u2) -> {
-            Double a = calculateEmployeeWorth(searchDto, u1);
-            Double b = calculateEmployeeWorth(searchDto, u2);
-            return b.compareTo(a);
+            u1.setEmployeeWorth(calculateEmployeeWorth(searchDto, u1));
+            u2.setEmployeeWorth(calculateEmployeeWorth(searchDto, u2));
+            return u2.getEmployeeWorth().compareTo(u1.getEmployeeWorth());
         });
         return users;
     }
 
     private Double calculateEmployeeWorth(SearchDto searchDto, User user) {
-        return (searchDto.getSalary() - user.getEmployeeInformation().getSalary() * 0.1) +
-                (user.getEmployeeInformation().getWorkExperience() - searchDto.getWorkExperience() * 0.4) +
+        return ((searchDto.getSalary() - user.getEmployeeInformation().getSalary()) * 0.01) +
+                ((user.getEmployeeInformation().getWorkExperience() - searchDto.getWorkExperience()) * 0.5) +
                 (user.getEmployeeInformation()
                 .getEmployeeSkills()
                 .stream()
@@ -125,6 +125,6 @@ public class ProfileServiceImpl implements ProfileService {
                         .map(SearchSkill::getSkill)
                         .collect(Collectors.toList()).contains(employeeSkill.getSkill()))
                 .mapToDouble(EmployeeSkills::getSkillLevel)
-                .sum() * 0.5);
+                .sum() * 1.5);
     }
 }

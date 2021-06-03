@@ -13,4 +13,7 @@ public class EmailUtil {
 
     @Value("${confirmationUrlWithToken}")
     private String confirmationUrlWithToken;
+
+    @Value("${contactMessage}")
+    private String contactMessage;
 }

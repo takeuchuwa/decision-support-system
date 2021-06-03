@@ -9,11 +9,12 @@ import ua.nure.decisionsupportsystem.entity.EmployeeInformation;
 import ua.nure.decisionsupportsystem.entity.EmployeeSkills;
 import ua.nure.decisionsupportsystem.entity.User;
 import ua.nure.decisionsupportsystem.entity.dto.SearchDto;
+import ua.nure.decisionsupportsystem.service.ContactService;
 import ua.nure.decisionsupportsystem.service.ProfileService;
-import ua.nure.decisionsupportsystem.service.impl.ProfileServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,6 +23,9 @@ public class ProfileController {
     
     @Setter(onMethod_ = @Autowired)
     private ProfileService profileService;
+
+    @Setter(onMethod_ = @Autowired)
+    private ContactService contactService;
 
     @GetMapping
     public String showProfile(HttpServletRequest request, ModelMap map, Principal principal) {
@@ -72,7 +76,15 @@ public class ProfileController {
     public String search(@ModelAttribute("searchDto") SearchDto searchDto, ModelMap map) {
         List<User> users = profileService.searchUsers(searchDto);
         map.addAttribute("users", users);
+        map.addAttribute("searchDto", searchDto);
         return "search/employees";
+    }
+
+    @PostMapping(params={"user-id"})
+    public String contact(@RequestParam("userId") Long id, @ModelAttribute("searchDto") SearchDto searchDto, ModelMap map) {
+        contactService.sendEmail(id);
+        map.addAttribute("id", id);
+        return search(searchDto, map);
     }
 }
 
