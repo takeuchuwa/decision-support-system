@@ -80,7 +80,7 @@ public class ProfileController {
         return "search/employees";
     }
 
-    @PostMapping(params={"user-id"})
+    @PostMapping(params={"userId"})
     public String contact(@RequestParam("userId") Long id, @ModelAttribute("searchDto") SearchDto searchDto, ModelMap map) {
         contactService.sendEmail(id);
         map.addAttribute("id", id);
