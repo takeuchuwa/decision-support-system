@@ -9,6 +9,3 @@ Software application that functions as a <b>decision support system</b>. Receive
 <li>Thymeleaf</li><br>
 
 <b>Database:</b> <li>PostgreSQL 12</li><br>
-
-<b>Project Manager:</b> Kovalenko Diana<br>
-<b>Programmers:</b> Horban Dmytro, Pavlov Oleksandr, Kravchenko Nazar
