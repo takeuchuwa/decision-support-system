@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="parts/header :: header"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mt-5">Suitable employees</h2>
+            <h6>Employees</h6>
+            <div id="employees" class="list-group">
+                <form class="list-group-item" th:each="user : ${users}" th:action="@{/profile(userId=${user.id})}"
+                      method="post">
+                    <span th:text="${'Name: ' + user.firstName + ' ' + user.lastName}"></span><br>
+                    <span th:text="${'Work Experience: ' + user.employeeInformation.workExperience}"></span><br>
+                    <span th:text="${'Salary: ' + user.employeeInformation.salary}"></span><br>
+                    -----<br>
+                    <span th:text="${'Email: ' + user.email}"></span><br>
+                    <span th:text="${'Phone: ' + user.phoneNumber}"></span><br>
+                    -----<br>
+                    <div th:each="skill : ${user.employeeInformation.employeeSkills}">
+                        <span th:text="${skill.skill.name + ' : ' + skill.skillLevel}"></span>
+                    </div>
+                    -----<br>
+                    <span th:text="${'Worth: ' + user.employeeWorth}"></span><br>
+                    <div th:switch="${param.userId != null && user.id.toString().equals(param.userId[0])}">
+                        <button class="btn btn-outline-success btn-sm mt-3" type="submit" th:case="${true}" disabled> Contact</button>
+                        <button class="btn btn-outline-success btn-sm mt-3" type="submit" th:case="*"> Contact</button>
+                    </div>
+                    <span th:if="${param.userId != null && user.id.toString().equals(param.userId[0])}" class="btn btn-info disabled mt-3">You successfully contact this user!</span>
+                    <div th:object="${searchDto}">
+                        <input type="hidden" th:field="*{workExperience}"/>
+                        <input type="hidden" th:field="*{salary}"/>
+                        <div id="skills" class="form-inline mt-3" th:each="skill,skillStat : *{skills}">
+                            <input type="hidden" th:field="*{skills[__${skillStat.index}__].skill}"/>
+                            <input type="hidden" th:field="*{skills[__${skillStat.index}__].level}"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="parts/footer :: footer"></div>
+</body>
+</html>

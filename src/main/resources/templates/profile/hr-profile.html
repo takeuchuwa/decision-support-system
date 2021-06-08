@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -8,7 +8,47 @@
 </head>
 <body>
 <div th:replace="parts/header :: header"></div>
-hr
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-5">
+            <form th:object="${searchDto}" th:action="@{/profile}" method="post">
+                <div class="ml-2">
+                    <div class="form-group mt-3">
+                        <h6>Work Experience (Maximum 15 years)</h6>
+                        <input id="work-experience" type="number" min="0" max="15"
+                               th:field="*{workExperience}" class="form-control"/>
+                    </div>
+                    <div class="form-group mt-3">
+                        <h6>Salary ($)</h6>
+                        <input id="salary" type="number" min="0" max="999999"
+                               th:field="*{salary}" class="form-control"/>
+                    </div>
+                    <div>
+                        <button type="submit" name="addRow" class="btn btn-success">Add row</button>
+
+                    </div>
+                    <div id="skills" class="form-inline mt-3" th:each="skill,skillStat : *{skills}">
+                        <select id="all-skills" class="form-control" th:field="*{skills[__${skillStat.index}__].skill}">
+                            <option th:each="var : ${allSkills}" th:value="${var.id}"
+                                    th:text="${var.name}"></option>
+                        </select>
+                        <input id="level" type="number" class="form-control mx-3" min="0" max="10"
+                               onblur="check(0, 10);" th:field="*{skills[__${skillStat.index}__].level}"/>
+                        <button type="submit" name="removeRow" class="btn btn-danger mx-2"
+                                th:value="${skillStat.index}">Remove row
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3" type="submit">Search</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 <div th:replace="parts/footer :: footer"></div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -13,17 +13,16 @@
     <div class="row">
         <div class="col-md-4">
             <h2 class="mt-5">Add information</h2>
-
-            <form th:object="${employeeInformation}" th:action="@{/profile}" method="post">
+            <form th:object="${employeeInformation}" th:action="@{/profile/save}" method="post">
                 <div class="ml-2">
                     <div class="form-group mt-3">
                         <h6>Work Experience (Maximum 15 years)</h6>
-                        <input id="work-experience" type="number" min="0" max="15" onblur="check(0, 15);"
+                        <input id="work-experience" type="number" min="0" max="15"
                                th:field="*{workExperience}" class="form-control"/>
                     </div>
                     <div class="form-group mt-3">
                         <h6>Salary ($)</h6>
-                        <input id="salary" type="number" min="0" max="999999" onblur="check(0, 99999);"
+                        <input id="salary" type="number" min="0" max="999999"
                                th:field="*{salary}" class="form-control"/>
                     </div>
                     <button class="btn btn-primary" type="submit">Save information</button>
@@ -43,7 +42,7 @@
                             <option th:each="skill : ${skills}" th:value="${skill.id}" th:text="${skill.name}"></option>
                         </select>
                         <h6 class="mt-2 mx-2">Level: </h6>
-                        <input id="level" type="number" class="form-control" min="0" max="10" onblur="check(0, 10);"
+                        <input id="level" type="number" class="form-control" min="0" max="10"
                                th:field="${employeeSkill.skillLevel}"/>
 
 
@@ -71,18 +70,6 @@
         </div>
     </div>
 </div>
-
-</div>
-<script>
-    function check(min, max) {
-        var num = parseInt(document.getElementById('work-experience').value);
-        if (min > num) {
-            document.getElementById('work-experience').value = min;
-        } else if (max < num) {
-            document.getElementById('work-experience').value = max;
-        }
-    }
-</script>
 <div th:replace="parts/footer :: footer"></div>
 </body>
 </html>

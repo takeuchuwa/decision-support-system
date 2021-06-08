@@ -43,6 +43,12 @@ public class User extends BaseEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private UserStatuses userStatus;
 
+    @OneToOne
+    private EmployeeInformation employeeInformation;
+
+    @Transient
+    private Double employeeWorth;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userType));
