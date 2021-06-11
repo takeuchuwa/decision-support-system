@@ -1,11 +1,11 @@
-package ua.nure.decisionsupportsystem.entity.dto;
+package ua.nure.decisionsupportsystem.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.nure.decisionsupportsystem.annotations.ValidPassword;
-import ua.nure.decisionsupportsystem.entity.enums.UserType;
+import ua.nure.decisionsupportsystem.entity.common.enums.UserType;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

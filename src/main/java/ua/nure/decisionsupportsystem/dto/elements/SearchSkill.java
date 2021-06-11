@@ -1,4 +1,4 @@
-package ua.nure.decisionsupportsystem.entity.dto.elements;
+package ua.nure.decisionsupportsystem.dto.elements;
 
 
 import lombok.AllArgsConstructor;

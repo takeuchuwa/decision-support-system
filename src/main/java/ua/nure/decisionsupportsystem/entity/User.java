@@ -4,15 +4,14 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
-import ua.nure.decisionsupportsystem.entity.enums.UserStatuses;
-import ua.nure.decisionsupportsystem.entity.enums.UserType;
+import ua.nure.decisionsupportsystem.entity.common.base.BaseEntity;
+import ua.nure.decisionsupportsystem.entity.common.enums.UserStatuses;
+import ua.nure.decisionsupportsystem.entity.common.enums.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

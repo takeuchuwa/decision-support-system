@@ -1,4 +1,4 @@
-package ua.nure.decisionsupportsystem.entity.enums;
+package ua.nure.decisionsupportsystem.entity.common.enums;
 
 public enum UserType {
     HR("HR"), EMPLOYEE("Employee");

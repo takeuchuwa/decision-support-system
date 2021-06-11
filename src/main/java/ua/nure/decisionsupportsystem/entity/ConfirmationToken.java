@@ -3,7 +3,7 @@ package ua.nure.decisionsupportsystem.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ua.nure.decisionsupportsystem.entity.base.BaseEntity;
+import ua.nure.decisionsupportsystem.entity.common.base.BaseEntity;
 
 import javax.persistence.*;
 

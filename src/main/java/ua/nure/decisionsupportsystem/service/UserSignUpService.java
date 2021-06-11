@@ -1,7 +1,7 @@
 package ua.nure.decisionsupportsystem.service;
 
 import org.springframework.validation.BindingResult;
-import ua.nure.decisionsupportsystem.entity.dto.UserDto;
+import ua.nure.decisionsupportsystem.dto.UserDto;
 
 public interface UserSignUpService {
 

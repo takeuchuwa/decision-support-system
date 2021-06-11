@@ -4,7 +4,7 @@ import org.springframework.ui.ModelMap;
 import ua.nure.decisionsupportsystem.entity.EmployeeInformation;
 import ua.nure.decisionsupportsystem.entity.EmployeeSkills;
 import ua.nure.decisionsupportsystem.entity.User;
-import ua.nure.decisionsupportsystem.entity.dto.SearchDto;
+import ua.nure.decisionsupportsystem.dto.SearchDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;

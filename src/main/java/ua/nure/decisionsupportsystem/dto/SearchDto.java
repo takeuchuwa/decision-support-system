@@ -1,10 +1,10 @@
-package ua.nure.decisionsupportsystem.entity.dto;
+package ua.nure.decisionsupportsystem.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ua.nure.decisionsupportsystem.entity.dto.elements.SearchSkill;
+import ua.nure.decisionsupportsystem.dto.elements.SearchSkill;
 
 import java.util.List;
 

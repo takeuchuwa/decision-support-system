@@ -16,8 +16,8 @@
             <form th:object="${employeeInformation}" th:action="@{/profile/save}" method="post">
                 <div class="ml-2">
                     <div class="form-group mt-3">
-                        <h6>Work Experience (Maximum 15 years)</h6>
-                        <input id="work-experience" type="number" min="0" max="15"
+                        <h6>Work Experience</h6>
+                        <input id="work-experience" type="number" min="0" max="99"
                                th:field="*{workExperience}" class="form-control"/>
                     </div>
                     <div class="form-group mt-3">

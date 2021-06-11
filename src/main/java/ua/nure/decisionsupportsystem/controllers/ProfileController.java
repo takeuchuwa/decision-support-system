@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import ua.nure.decisionsupportsystem.entity.EmployeeInformation;
 import ua.nure.decisionsupportsystem.entity.EmployeeSkills;
 import ua.nure.decisionsupportsystem.entity.User;
-import ua.nure.decisionsupportsystem.entity.dto.SearchDto;
+import ua.nure.decisionsupportsystem.dto.SearchDto;
 import ua.nure.decisionsupportsystem.service.ContactService;
 import ua.nure.decisionsupportsystem.service.ProfileService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

@@ -1,4 +1,4 @@
-package ua.nure.decisionsupportsystem.entity.base;
+package ua.nure.decisionsupportsystem.entity.common.base;
 
 import lombok.Data;
 
